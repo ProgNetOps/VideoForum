@@ -1,4 +1,4 @@
-namespace VideoForum.Models
+namespace VideoForum.ViewModels
 {
     public class ErrorViewModel
     {
