@@ -30,6 +30,6 @@ namespace VideoForum.Core.Entities
         [ForeignKey(nameof(ChannelId))]
         public Channel? Channel { get; set; }
         public ICollection<Comment>? Comments { get; set; }
-        public ICollection<LikeDislike>? LikeDislike { get; set; }
+        public ICollection<LikeDislike>? LikeDislikes { get; set; }
     }
 }
