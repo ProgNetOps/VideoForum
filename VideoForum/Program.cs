@@ -1,14 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using VideoForum.DataAccess.Data;
+using VideoForum.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+builder.AddApplicationServices();
 
 var app = builder.Build();
 
@@ -32,3 +30,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+void InitializeContext()
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+}
