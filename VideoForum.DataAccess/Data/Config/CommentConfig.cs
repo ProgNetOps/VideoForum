@@ -33,8 +33,6 @@ namespace VideoForum.DataAccess.Data.Config
 
             //NOTE: We cannot have more than one cascade delete in SQL Server; an exception will be thrown, so we use restrict for the other ones. However, multiple delete cascade behaviour is allowed in some other databases eg PostGresql
 
-
-
         }
     }
 }
