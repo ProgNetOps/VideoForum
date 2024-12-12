@@ -14,7 +14,6 @@ namespace VideoForum.Core.Entities
         public string? Name { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int ChannelId { get; set; }
 
         //Navigations
         public Channel? Channel { get; set; }
