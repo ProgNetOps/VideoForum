@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using VideoForum.Core.Entities;
@@ -22,6 +23,12 @@ public class AppDbContext:IdentityDbContext<AppUser,AppRole,int>
     {
         base.OnModelCreating(builder);
 
+        //Shorter way of applying manual configuration
+        // $ builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
+
+        //Longer way of applying manual configuration
         builder.ApplyConfiguration(new CommentConfig());
+        builder.ApplyConfiguration(new SubscribeConfig());
+        builder.ApplyConfiguration(new LikeDislikeConfig());
     }
 }

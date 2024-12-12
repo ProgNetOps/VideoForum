@@ -20,6 +20,6 @@ namespace VideoForum.Core.Entities
         public Channel? Channel { get; set; }
         public ICollection<Comment>? Comments { get; set; }
         public ICollection<Subscribe>? Subscriptions { get; set; }
-        public ICollection<LikeDislike>? LikeDislike { get; set; }
+        public ICollection<LikeDislike>? LikeDislikes { get; set; }
     }
 }
