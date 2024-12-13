@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VideoForum.Core\VideoForum.Core.csproj" />
+    <ProjectReference Include="..\VideoForum.Utility\VideoForum.Utility.csproj" />
   </ItemGroup>
 
 </Project>

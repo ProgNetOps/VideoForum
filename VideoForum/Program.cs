@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using VideoForum.Core.Entities;
 using VideoForum.DataAccess.Data;
 using VideoForum.Extensions;
 
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.AddApplicationServices();
+builder.AddAuthenticationServices();
 
 var app = builder.Build();
 
@@ -24,6 +27,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -31,15 +36,16 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 //Effect database migration automatically
-InitializeContext();
+await InitializeContextAsync();
 
 app.Run();
 
 
-// This method calls the static Initialize method
-void InitializeContext()
+// This method calls the static InitializeAsync method
+async Task InitializeContextAsync()
 {
     using var scope = app.Services.CreateScope();
+
     var services = scope.ServiceProvider;
 
     try
@@ -47,12 +53,17 @@ void InitializeContext()
         //Injects a scoped instance of the dbContext
         AppDbContext? dbContext = scope.ServiceProvider.GetService<AppDbContext>();
 
+        //Injects a scoped instance of the generic usermanager
+        UserManager<AppUser>? userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
 
-        ContextInitializer.Initialize(dbContext);
+        //Injects a scoped instance of the generic rolemanager
+        RoleManager<AppRole>? roleManager = scope.ServiceProvider.GetService<RoleManager<AppRole>>();
+
+        await ContextInitializer.InitializeAsync(dbContext, userManager, roleManager);
     }
     catch(Exception ex)
     {
         var logger = services.GetService<ILogger<Program>>();
-        logger.LogError("An error occured while migrating the database");
+        logger?.LogError(ex,"An error occured while migrating the database");
     }
 }
