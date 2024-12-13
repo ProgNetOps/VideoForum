@@ -10,9 +10,10 @@ namespace VideoForum.DataAccess.Data;
 //This class is responsible for updating the database; migrations, seeding the database etc
 public static class ContextInitializer
 {
-    public static void Initialize(AppDbContext appDbContext)
+    public static void Initialize(AppDbContext? appDbContext)
     {
-        if (appDbContext.Database.GetPendingMigrations().Count() > 0)
+        //Check if there is any pending migration and effect db migration
+        if (appDbContext?.Database.GetPendingMigrations().Count() > 0)
         {
             appDbContext.Database.Migrate();
         }
