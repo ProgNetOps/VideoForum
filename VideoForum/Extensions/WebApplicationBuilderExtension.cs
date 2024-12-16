@@ -39,8 +39,8 @@ public static class WebApplicationBuilderExtension
             .AddCookie(options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromHours(24);
-                options.LoginPath = "Account/Login";
-                options.AccessDeniedPath = "Account/AccessDenied";
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
         return builder;
