@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VideoForum.Core.Entities;
 using VideoForum.DataAccess.Data;
@@ -6,10 +7,18 @@ using VideoForum.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+#region Add Services to the container
+builder.Services.AddControllersWithViews(options =>
+{//Auto validate antiforgery token
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+}).AddRazorRuntimeCompilation();
+
 builder.AddApplicationServices();
+
 builder.AddAuthenticationServices();
+
+#endregion
 
 var app = builder.Build();
 

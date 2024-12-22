@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VideoForum.Core.Entities;
 using VideoForum.DataAccess.Data;
@@ -14,6 +15,7 @@ public static class WebApplicationBuilderExtension
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
+
 
         return builder;
     }
@@ -40,7 +42,7 @@ public static class WebApplicationBuilderExtension
             {
                 options.ExpireTimeSpan = TimeSpan.FromHours(24);
                 options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.AccessDeniedPath = "/Account/AccessDenied";//Path to redirect all attempted unauthorized access
             });
 
         return builder;
