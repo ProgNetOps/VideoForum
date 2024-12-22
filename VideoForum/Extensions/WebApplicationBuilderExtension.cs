@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VideoForum.Core.Entities;
+using VideoForum.Core.IRepo;
 using VideoForum.DataAccess.Data;
+using VideoForum.DataAccess.Repo;
 
 namespace VideoForum.Extensions;
 
@@ -16,6 +18,7 @@ public static class WebApplicationBuilderExtension
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
 
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return builder;
     }

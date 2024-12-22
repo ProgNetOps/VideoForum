@@ -9,9 +9,9 @@ using VideoForum.DataAccess.Data;
 
 namespace VideoForum.DataAccess.Repo;
 
-public class ChannelRepo:BaseRepo<Channel>, IChannelRepo
+public class VideoRepo : BaseRepo<Video>, IVideoRepo
 {
-    public ChannelRepo(AppDbContext appDbContext):base(appDbContext)
-    {          
+    public VideoRepo(AppDbContext appDbContext) : base(appDbContext)
+    {
     }
 }
